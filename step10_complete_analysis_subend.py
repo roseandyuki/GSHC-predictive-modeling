@@ -1,15 +1,7 @@
 # -*- coding: utf-8 -*-
 # =============================================================================
-# --- Step 9: Complete Analysis Pipeline (Subend) - V3 ---
+# --- Step 10: Complete Analysis Pipeline (Subend) - V3 ---
 #
-# Gemini's Note:
-# This script represents the final, merged, and DEBUGGED version.
-# Key Fixes:
-# 1. Corrected variable scope and code execution order for subgroup analysis.
-# 2. Made the information passing between functions robust to avoid AttributeErrors.
-# 3. Added safety checks to handle empty subgroups gracefully.
-# =============================================================================
-
 import pandas as pd
 import numpy as np
 import matplotlib
@@ -209,8 +201,6 @@ print(f"LASSO finally selected features ({len(lasso_6_features)}): {lasso_6_feat
 
 # =============================================================================
 # --- Part 2.5: Endpoint Deconstruction Analysis Setup ---
-# Gemini's Note: This new section directly addresses the composite endpoint
-# limitation by creating two separate, clean analytical datasets.
 # =============================================================================
 print("\n--- Part 2.5: Setting up for Endpoint Deconstruction Analysis... ---")
 
@@ -302,7 +292,6 @@ def evaluate_model_cv(X_data, y_data, analysis_name):
 
     return results_df, n_splits, n_repeats
 
-# --- GEMINI'S FIX 3: MOVED SUBGROUP DEFINITION BEFORE USAGE ---
 # Subgroup Analyses Definitions
 is_hypertensive_v2 = (final_df['sbp_v2'] >= 120) | (final_df['dbp_v2'] >= 80)
 is_overweight_v2 = final_df['bmi_v2'] >= 25
@@ -329,7 +318,6 @@ cv_results_ow_endpoint, n_splits_ow_e, n_repeats_ow_e = evaluate_model_cv(X_ow_e
 # =============================================================================
 print("\n--- Part 4: Generating final publication-quality figures... ---")
 
-# --- GEMINI'S FIX 4: MODIFIED PLOTTING FUNCTION ---
 def plot_forest_cv(cv_data, n_repeats, n_splits, title, filename):
     if cv_data is None: # Safety check if evaluation was skipped
         print(f"Skipping forest plot for '{title}' as no data was generated.")
@@ -347,7 +335,6 @@ def plot_forest_cv(cv_data, n_repeats, n_splits, title, filename):
     plt.close()
     print(f"Generated and saved forest plot: {filename}")
 
-# --- GEMINI'S FIX 4 (cont.): UPDATED PLOTTING CALLS ---
 plot_forest_cv(cv_results_main, n_repeats_main, n_splits_main, "Model Performance Comparison (Main Analysis)", "forest_plot_main_analysis.png")
 plot_forest_cv(cv_results_htn, n_repeats_htn, n_splits_htn, "Model Performance Comparison (Hypertension Subgroup)", "forest_plot_hypertension_subgroup.png")
 plot_forest_cv(cv_results_ow, n_repeats_ow, n_splits_ow, "Model Performance Comparison (Overweight Subgroup)", "forest_plot_overweight_subgroup.png")
@@ -413,9 +400,6 @@ plt.close()
 print("Generated and saved SHAP summary plot for LASSO model.")
 
 # =============================================================================
-# --- GEMINI's ADDITION: Extract and Print Final LASSO Coefficients ---
-# This block extracts the coefficients and intercept for TRIPOD Item 22
-# =============================================================================
 print("\n--- Part 4.5: Extracting Final Model Specification (for TRIPOD Checklist)... ---")
 
 # Extract the fitted logistic regression model from the pipeline
@@ -438,10 +422,8 @@ print("\n--- ★★★ Final LASSO Model Coefficients (TRIPOD Item 22) ★★★
 print(coeff_df.to_string(index=False))
 print("\nNote: These coefficients apply to Z-score standardized data.")
 print("For prediction: logit(p) = intercept + β₁×(standardized_feature₁) + β₂×(standardized_feature₂) + ...")
-# =============================================================================
-# --- End of Gemini's Addition ---
-# =============================================================================
 
+# =============================================================================
 # --- Plot Endpoint Deconstruction Results ---
 plot_forest_cv(cv_results_htn_endpoint, n_repeats_htn_e, n_splits_htn_e, "Model Performance (Hypertension Only Endpoint)", "forest_plot_htn_endpoint.png")
 plot_forest_cv(cv_results_ow_endpoint, n_repeats_ow_e, n_splits_ow_e, "Model Performance (Overweight Only Endpoint)", "forest_plot_ow_endpoint.png")
@@ -574,22 +556,13 @@ print("Generated and saved Decision Curve Analysis plot.")
 print("\n--- ★★★ ALL ANALYSES AND REPORTS ARE COMPLETE ★★★ ---")
 
 # =============================================================================
-# --- Gemini's Addition for TRIPOD Item 20b: Generate Table 1 (Version 2) ---
-# --- FIX: Corrected the logic for handling categorical 'gender' variable ---
-# =============================================================================
 print("\n--- Part 7: Generating Baseline Characteristics (Table 1)... ---")
 
 from scipy.stats import ttest_ind, chi2_contingency
 import pandas as pd
 
-# 确保 'final_df' 和 'HIGH_QUALITY_FEATURES' 已经定义
-# final_df 是您在脚本开始时创建的最终分析队列 (n=447)
-# HIGH_QUALITY_FEATURES 是包含16个候选预测变量的列表
-
-# 复制一份数据以避免修改原始数据
 table1_df = final_df.copy()
 
-# 准备分组
 group0 = table1_df[table1_df['Y_Transition'] == 0] # 保持健康组
 group1 = table1_df[table1_df['Y_Transition'] == 1] # 发生转变组
 
