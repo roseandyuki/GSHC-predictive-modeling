@@ -325,46 +325,46 @@ print("\n" + "="*80)
 print("★★★ RANDOM SAMPLING CONTROL EXPERIMENT SUMMARY ★★★")
 print("="*80)
 
-print(f"\n🎯 EXPERIMENTAL DESIGN:")
+print(f"\n EXPERIMENTAL DESIGN:")
 print(f"   • Objective: Test if GSHC's SDB signal detection is due to 'healthy selection' vs 'small sample effect'")
 print(f"   • Method: Random sampling from full cohort (n={len(full_cohort_df)})")
 print(f"   • Sample size: n=447 (matching GSHC)")
 print(f"   • Repetitions: {N_EXPERIMENTS} experiments")
 print(f"   • Analysis: LASSO feature selection on each sample")
 
-print(f"\n📊 KEY FINDINGS:")
+print(f"\n KEY FINDINGS:")
 print(f"   • Experiments with ANY SDB variable: {experiments_with_any_sdb}/{N_EXPERIMENTS} ({experiments_with_any_sdb/N_EXPERIMENTS*100:.1f}%)")
 print(f"   • Experiments with RDI: {experiments_with_rdi}/{N_EXPERIMENTS} ({experiments_with_rdi/N_EXPERIMENTS*100:.1f}%)")
 print(f"   • Experiments with min_SpO2: {experiments_with_min_spo2}/{N_EXPERIMENTS} ({experiments_with_min_spo2/N_EXPERIMENTS*100:.1f}%)")
 print(f"   • Experiments with BOTH key SDB variables: {experiments_with_both_key_sdb}/{N_EXPERIMENTS} ({experiments_with_both_key_sdb/N_EXPERIMENTS*100:.1f}%)")
 
-print(f"\n🔬 STATISTICAL INTERPRETATION:")
+print(f"\n STATISTICAL INTERPRETATION:")
 if experiments_with_rdi < 50:  # Less than 5%
-    print(f"   ★ RDI selection frequency ({experiments_with_rdi/N_EXPERIMENTS*100:.1f}%) is EXTREMELY LOW")
-    print(f"   ★ This strongly suggests GSHC's RDI detection is NOT due to small sample effect")
+    print(f"    RDI selection frequency ({experiments_with_rdi/N_EXPERIMENTS*100:.1f}%) is EXTREMELY LOW")
+    print(f"    This strongly suggests GSHC's RDI detection is NOT due to small sample effect")
 if experiments_with_min_spo2 < 50:  # Less than 5%
-    print(f"   ★ min_SpO2 selection frequency ({experiments_with_min_spo2/N_EXPERIMENTS*100:.1f}%) is EXTREMELY LOW")
-    print(f"   ★ This strongly suggests GSHC's min_SpO2 detection is NOT due to small sample effect")
+    print(f"    min_SpO2 selection frequency ({experiments_with_min_spo2/N_EXPERIMENTS*100:.1f}%) is EXTREMELY LOW")
+    print(f"    This strongly suggests GSHC's min_SpO2 detection is NOT due to small sample effect")
 
 if experiments_with_both_key_sdb < 10:  # Less than 1%
-    print(f"   ★★★ CRITICAL FINDING: Both RDI and min_SpO2 selected together in only {experiments_with_both_key_sdb} experiments")
-    print(f"   ★★★ This provides STRONG evidence that GSHC's signal detection is due to HEALTHY SELECTION")
+    print(f"    CRITICAL FINDING: Both RDI and min_SpO2 selected together in only {experiments_with_both_key_sdb} experiments")
+    print(f"    This provides STRONG evidence that GSHC's signal detection is due to HEALTHY SELECTION")
 
-print(f"\n🎯 SCIENTIFIC CONCLUSION:")
+print(f"\n SCIENTIFIC CONCLUSION:")
 if experiments_with_any_sdb < N_EXPERIMENTS * 0.1:  # Less than 10%
-    print(f"   ✅ HYPOTHESIS CONFIRMED: SDB signals are rarely detected in random samples")
-    print(f"   ✅ GSHC's superior signal detection is due to 'healthy cohort selection', NOT 'small sample effect'")
-    print(f"   ✅ This validates the GSHC methodology for precision medicine research")
+    print(f"    HYPOTHESIS CONFIRMED: SDB signals are rarely detected in random samples")
+    print(f"    GSHC's superior signal detection is due to 'healthy cohort selection', NOT 'small sample effect'")
+    print(f"    This validates the GSHC methodology for precision medicine research")
 else:
-    print(f"   ⚠️  Mixed results - further investigation needed")
+    print(f"     Mixed results - further investigation needed")
 
-print(f"\n📈 IMPLICATIONS:")
+print(f"\n IMPLICATIONS:")
 print(f"   • GSHC methodology is scientifically validated")
 print(f"   • 'Healthy cohort selection' is a legitimate signal amplification strategy")
 print(f"   • Small sample size alone cannot explain GSHC's superior performance")
 print(f"   • Results support precision medicine applications")
 
-print(f"\n📁 Generated Files:")
+print(f"\n Generated Files:")
 print(f"   • random_sampling_control_experiment.png - Comprehensive visualization")
 print(f"   • random_sampling_results.csv - Detailed experimental results")
 
@@ -419,7 +419,8 @@ print("  • experiment_summary.csv - Summary statistics")
 print("  • feature_selection_frequencies.csv - Feature selection frequencies")
 
 print("\n" + "="*80)
-print("★★★ RANDOM SAMPLING CONTROL EXPERIMENT COMPLETE ★★★")
+print(" RANDOM SAMPLING CONTROL EXPERIMENT COMPLETE ")
 print("="*80)
-print("\n🎉 This experiment provides crucial evidence for validating the GSHC methodology!")
-print("🔬 Results can be used to refute 'small sample effect' criticisms in peer review.")
+print("\n This experiment provides crucial evidence for validating the GSHC methodology!")
+print(" Results can be used to refute 'small sample effect' criticisms in peer review.")
+ #the most important breakout hahaha
