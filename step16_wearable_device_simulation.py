@@ -304,7 +304,7 @@ def create_brain_comparison_plot(all_results, output_dir, base_df):
     baseline = all_results.get('Baseline_PSG')
     smartphone = all_results.get('Smartphone_Only')
     if baseline is None or smartphone is None or 'error' in baseline or 'error' in smartphone:
-        print("❌ 无法生成大脑对比图：缺少模型结果或模型分析失败")
+        print(" 无法生成大脑对比图：缺少模型结果或模型分析失败")
         return
 
     # 2. 取出特征和数据
@@ -337,7 +337,6 @@ def create_brain_comparison_plot(all_results, output_dir, base_df):
     pipeline_base.fit(X_base, y_base)
 
     # Smartphone Only
-    # 需要重新生成Smartphone Only降质后的数据
     smartphone_config = DEGRADATION_SCENARIOS['Smartphone_Only']
     degraded_df = simulate_wearable_data(base_df, 'Smartphone_Only', smartphone_config)
     X_phone, y_phone = get_X_y(degraded_df, smartphone['feature_names'])
@@ -352,14 +351,12 @@ def create_brain_comparison_plot(all_results, output_dir, base_df):
     ])
     pipeline_phone.fit(X_phone, y_phone)
 
-    # 4. 计算SHAP值
     explainer_base = shap.Explainer(pipeline_base.named_steps['lasso'], X_base)
     shap_values_base = explainer_base(X_base)
 
     explainer_phone = shap.Explainer(pipeline_phone.named_steps['lasso'], X_phone)
     shap_values_phone = explainer_phone(X_phone)
 
-    # 5. 并排画图
     fig, axes = plt.subplots(1, 2, figsize=(18, 8))
     plt.sca(axes[0])
     shap.summary_plot(shap_values_base, X_base, show=False, plot_type="dot")
@@ -370,7 +367,7 @@ def create_brain_comparison_plot(all_results, output_dir, base_df):
     plt.tight_layout()
     plt.savefig(os.path.join(output_dir, 'figure5_brain_comparison.png'), dpi=300, bbox_inches='tight')
     plt.close()
-    print("✓ Figure 5（模型大脑对比图）已保存")
+    print(" Figure 5 saved")
 
 if __name__ == "__main__":
     print("=== Wearable Device Simulation Analysis ===")
@@ -416,7 +413,7 @@ if __name__ == "__main__":
         
         # Print results
         if 'error' in results:
-            print(f"❌ Error: {results['error']}")
+            print(f" Error: {results['error']}")
         else:
             print(f"✓ GSHC size: {results['gshc_size']}")
             print(f"✓ Selected features: {results['selected_features']}/{results['available_features']}")
@@ -440,7 +437,7 @@ if __name__ == "__main__":
 
     baseline = all_results.get('Baseline_PSG', {})
     if 'error' not in baseline:
-        print(f"📊 PSG Baseline AUC: {baseline['mean_auc']:.3f}")
+        print(f" PSG Baseline AUC: {baseline['mean_auc']:.3f}")
 
     wearable_results = {k: v for k, v in all_results.items()
                        if k != 'Baseline_PSG' and 'error' not in v}
@@ -448,25 +445,24 @@ if __name__ == "__main__":
     for scenario_name, results in wearable_results.items():
         if 'error' not in baseline:
             loss = (baseline['mean_auc'] - results['mean_auc']) / baseline['mean_auc'] * 100
-            print(f"📱 {scenario_name}: AUC {results['mean_auc']:.3f} (-{loss:.1f}%)")
+            print(f" {scenario_name}: AUC {results['mean_auc']:.3f} (-{loss:.1f}%)")
         else:
-            print(f"� {scenario_name}: AUC {results['mean_auc']:.3f}")
+            print(f" {scenario_name}: AUC {results['mean_auc']:.3f}")
 
-    print("\n🎯 Wearable Device Simulation Complete!")
-    print("📊 Key Questions Answered:")
+    print("\n Wearable Device Simulation Complete!")
+    print(" Key Questions Answered:")
     print("   - How much performance is lost with consumer devices?")
     print("   - Which device types are most viable for clinical use?")
     print("   - What are the critical sensor requirements?")
     print("   - Is the GSHC framework robust to data quality degradation?")
-    print("\n💡 To generate detailed visualizations, run the visualization functions separately.")
+    print("\n To generate detailed visualizations, run the visualization functions separately.")
 
-    # === 自动生成 Figure 5（模型大脑对比图） ===
     try:
         print("\n--- Generating Figure 5: Brain Comparison Plot ---")
         create_brain_comparison_plot(all_results, OUTPUT_DIR, base_df)
         print("✓ Figure 5 saved to:", os.path.join(OUTPUT_DIR, 'figure5_brain_comparison.png'))
     except Exception as e:
-        print(f"❌ Failed to generate Figure 5: {e}")
+        print(f" Failed to generate Figure 5: {e}")
 
 # =============================================================================
 # --- Visualization Functions ---
@@ -558,7 +554,7 @@ def create_signal_degradation_analysis(all_results, output_dir):
     # Calculate performance degradation relative to baseline
     baseline_results = all_results.get('Baseline_PSG', {})
     if 'error' in baseline_results:
-        print("❌ Cannot create degradation analysis - baseline failed")
+        print(" Cannot create degradation analysis - baseline failed")
         return
 
     baseline_auc = baseline_results['mean_auc']
@@ -760,13 +756,13 @@ def generate_summary_report(all_results, output_dir):
 
     # Print key findings to console
     if 'error' not in baseline:
-        print(f"📊 PSG Baseline AUC: {baseline['mean_auc']:.3f}")
+        print(f" PSG Baseline AUC: {baseline['mean_auc']:.3f}")
 
     for scenario_name, results in wearable_results.items():
         if 'error' not in baseline:
             loss = (baseline['mean_auc'] - results['mean_auc']) / baseline['mean_auc'] * 100
-            print(f"📱 {scenario_name}: AUC {results['mean_auc']:.3f} (-{loss:.1f}%)")
+            print(f" {scenario_name}: AUC {results['mean_auc']:.3f} (-{loss:.1f}%)")
         else:
-            print(f"📱 {scenario_name}: AUC {results['mean_auc']:.3f}")
+            print(f" {scenario_name}: AUC {results['mean_auc']:.3f}")
 
     return report_file
