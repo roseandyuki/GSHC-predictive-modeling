@@ -3,7 +3,7 @@
 # --- Step 13: GSHC vs Full SHHS Cohort Comparison (Signal-to-Noise Analysis) ---
 #
 # This script compares the predictive performance of the same models on:
-# 1. GSHC (Gemini's Selected Healthy Cohort): n=447 - High signal-to-noise ratio
+# 1. GSHC (Golden Selected Healthy Cohort): n=447 - High signal-to-noise ratio
 # 2. Full SHHS Cohort: n=~3518 - Lower signal-to-noise ratio (negative control)
 #
 # Purpose: Demonstrate that GSHC provides superior signal-to-noise ratio
@@ -519,7 +519,7 @@ if sleep_improvement_found:
 else:
     print(f"   • Mixed results - further investigation needed")
 
-print(f"\n📈 CLINICAL IMPLICATIONS:")
+print(f"\n CLINICAL IMPLICATIONS:")
 print(f"   • GSHC approach may be superior for:")
 print(f"     - Early detection of metabolic risk")
 print(f"     - Identifying subtle sleep-health associations")
@@ -529,25 +529,25 @@ print(f"     - Population-level risk assessment")
 print(f"     - Generalizability studies")
 print(f"     - Public health interventions")
 
-print(f"\n⚠️  LIMITATIONS:")
+print(f"\n  LIMITATIONS:")
 print(f"   • Different sample sizes may affect comparison")
 print(f"   • GSHC has lower event rate (may affect power)")
 print(f"   • Results specific to SHHS population")
 
-print(f"\n📁 Generated Files:")
+print(f"\n Generated Files:")
 print(f"   • signal_amplification_evidence.png - ★ MAIN FIGURE: Signal detection evidence")
 print(f"   • supporting_performance_comparison.png - Supporting performance metrics")
 print(f"   • gshc_vs_full_cohort_results.csv - Detailed numerical results")
 print(f"   • feature_selection_comparison.csv - Feature selection comparison")
 
-print(f"\n🎯 FIGURE INTERPRETATION GUIDE:")
+print(f"\n FIGURE INTERPRETATION GUIDE:")
 print(f"   • Main Figure (signal_amplification_evidence.png):")
 print(f"     - Left panel: Full cohort buries sleep signals in noise")
 print(f"     - Right panel: GSHC amplifies and detects sleep signals")
 print(f"     - Key message: GSHC enables discovery of biological associations")
 print(f"   • Supporting Figure: Shows performance context (not the main point)")
 
-print(f"\n📝 MANUSCRIPT MESSAGING:")
+print(f"\n MANUSCRIPT MESSAGING:")
 print(f"   • Primary claim: GSHC is a signal amplification framework")
 print(f"   • Evidence: Sleep variables only detected in GSHC, not full cohort")
 print(f"   • Implication: Healthy cohort selection enables precision medicine discovery")
@@ -591,4 +591,4 @@ feature_comparison = pd.DataFrame({
 feature_comparison.to_csv(os.path.join(OUTPUT_DIR, 'feature_selection_comparison.csv'), index=False)
 print("Exported feature comparison: feature_selection_comparison.csv")
 
-print("\n🎉 Analysis complete! Check the output directory for all results.")
+print("\n Analysis complete! Check the output directory for all results.")
