@@ -99,6 +99,7 @@ After successful execution, the script will print:
 
 All figures used in the paper will be saved as `.png` files in a folder named `output_figures`.
 
+
 ---
 
 ## 📚 Citation
@@ -112,4 +113,7 @@ If you use this repository in your research, please cite our paper (to be update
 ## 📝 License
 
 This project is licensed under the **MIT License**.
+
+## CHANGELOG
+I found that the results of step 16 could not be consistently reproduced due to not setting a fixed seed, so I spent half a day on July 24th working hard to fix this issue, and now it has been resolved.
 
